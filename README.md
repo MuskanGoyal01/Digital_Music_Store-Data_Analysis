@@ -4,6 +4,6 @@
 First SQL queries are done on `Chinook` Digital Music Store 
 to help how they can optimize their business opportunities and 
 to help answering business related questions code of which is :    
-  [_Code_](/CHINOOK QUERIES.py)
+  [_Code_](https://github.com/MuskanGoyal01/Digital_Music_Store-Data_Analysis/blob/master/CHINOOK%20QUERIES.py)
 
 
