@@ -1,11 +1,13 @@
-db = "chinook.db"
-
 import sqlite3
 import pandas as pd
 
+db = "Statics/chinook.db"
+
+
 def run_query(q):
-    with sqlite3.connect('chinook.db') as conn:
+    with sqlite3.connect('Statics/chinook.db') as conn:
         return pd.read_sql(q, conn)
+
 
 q1 = ''' 
 SELECT billing_country,COUNT(billing_country) AS Invoice_Number
@@ -14,7 +16,7 @@ GROUP BY billing_country
 ORDER BY Invoice_Number DESC
 '''
 q1 = run_query(q1)
-print('\n',q1)
+print('\n', q1)
 
 q2 = '''
 SELECT billing_city,SUM(total) AS InvoiceTotal
@@ -24,7 +26,7 @@ ORDER BY InvoiceTotal DESC
 LIMIT 1
 '''
 q2 = run_query(q2)
-print('\n',q2)
+print('\n', q2)
 
 q3 = '''
 SELECT customer.customer_id, first_name, last_name, SUM(total) AS total_spending
@@ -35,7 +37,7 @@ ORDER BY total_spending DESC
 LIMIT 1 
 '''
 q3 = run_query(q3)
-print('\n',q3)
+print('\n', q3)
 
 q4 = '''
 SELECT DISTINCT email ,first_name , last_name , genre.name
@@ -48,7 +50,7 @@ WHERE genre.name LIKE 'Rock'
 ORDER BY email
 '''
 q4 = run_query(q4)
-print('\n',q4)
+print('\n', q4)
 
 q5 = '''
 SELECT DISTINCT artist.name, COUNT(track.genre_id) AS total_tracks
@@ -65,7 +67,7 @@ ORDER BY total_tracks DESC
 LIMIT 10        
 '''
 q5 = run_query(q5)
-print('\n',q5)
+print('\n', )
 
 q6 = '''
 WITH best_selling_artist AS(
@@ -114,7 +116,7 @@ JOIN max_genre_per_country ON sales_per_country.country = max_genre_per_country.
 WHERE sales_per_country.purchases_per_genre = max_genre_per_country.max_genre_number
 '''
 q7 = run_query(q7)
-print('\n',q7)
+print('\n', q7)
 
 q8 = '''
 SELECT name,milliseconds
@@ -125,7 +127,7 @@ WHERE milliseconds > (
 ORDER BY milliseconds DESC
 '''
 q8 = run_query(q8)
-print('\n',q8)
+print('\n', q8)
 
 q9 = '''
 WITH RECURSIVE 
@@ -149,4 +151,4 @@ WHERE cc.total_spending = ms.max_spending
 ORDER BY 1
 '''
 q9 = run_query(q9)
-print('\n',q9)
+print('\n', q9)

@@ -1,25 +1,29 @@
-db = "chinook.db"
-
 import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 
-schema = 'ChinookSchema.png'
+db = "Statics/chinook.db"
+
+schema = 'Statics/ChinookSchema.png'
 image = plt.imread(schema)
 plt.figure(figsize = (10, 10))
 plt.imshow(image)
 plt.show()
 
+
 def run_query(q):
-    with sqlite3.connect('chinook.db') as conn:
+    with sqlite3.connect('Statics/chinook.db') as conn:
         return pd.read_sql(q, conn)
+
 
 def show_tables():
     view_query = 'SELECT name, type FROM sqlite_master WHERE type IN ("table","view");'
     return run_query(view_query)
+
+
 print(show_tables(),'\n')
 
-#QUESTION 1:
+# QUESTION 1:
 q1 = '''
 WITH USA_sales AS (SELECT genre.name AS genre, COUNT(invoice_line.track_id) AS total_tracks
 FROM invoice
@@ -40,7 +44,7 @@ USA_GENRE_SALES['total_tracks'].plot.bar()
 plt.title('Number of Tracks Sold in the US per Genre')
 plt.show()
 
-#QUESTION 2:
+# QUESTION 2:
 q2 = '''
 SELECT employee_id, e.first_name || e.last_name as name,birthdate, reports_to, hire_date, e.country, SUM(total) AS employee_sales
 FROM invoice i 
@@ -57,7 +61,7 @@ employee_sales['employee_sales'].plot.bar()
 plt.title('Total Sales per Chinook Employee')
 plt.show()
 
-#QUESTION 3:
+# QUESTION 3:
 q3 ='''    
 WITH country_sales AS(
     SELECT 
@@ -104,7 +108,7 @@ ax[1].set_xticklabels(country_sales_data['Country'],rotation=90)
 ax[2].set_xticklabels(country_sales_data['Country'],rotation=90)
 plt.show()
 
-#QUESTION 4:
+# QUESTION 4:
 q4 = '''
 WITH album_tracks_dictionary AS
     (SELECT 
