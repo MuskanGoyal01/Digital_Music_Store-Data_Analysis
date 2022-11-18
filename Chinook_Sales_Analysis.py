@@ -1,12 +1,13 @@
 import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
+from pandas._config import display
 
 db = "Statics/chinook.db"
 
 schema = 'Statics/ChinookSchema.png'
 image = plt.imread(schema)
-plt.figure(figsize = (10, 10))
+plt.figure()
 plt.imshow(image)
 plt.show()
 
@@ -54,6 +55,10 @@ GROUP BY 1,2
 ORDER BY 6 DESC
 '''
 employee_sales = run_query(q2)
+
+pd.set_option('display.max_columns', None)
+pd.reset_option('max_columns')
+pd.get_option("display.max_columns")
 print(employee_sales)
 
 employee_sales = employee_sales.set_index('name')
@@ -62,7 +67,7 @@ plt.title('Total Sales per Chinook Employee')
 plt.show()
 
 # QUESTION 3:
-q3 ='''    
+q3 = '''    
 WITH country_sales AS(
     SELECT 
         c.country AS Country,
